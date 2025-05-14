@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es-mx">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+  />
+  <link rel="stylesheet" href="static/css/styles.css">
+  <title>DSG_2P_PROYECTO</title>
+</head>
+<body>
+  <!-- Contenedor del mapa -->
+  <div id="map"></div>
+
+  <div class="overlay-container">
+    <!-- Sección de botones con fondo azul oscuro -->
+    <div class="nav-buttons-container">
+      <div class="nav-buttons">
+        <button id="btnFiltrado" class="active" onclick="showSection('filtrado')">
+          Filtrado
+        </button>
+        <button id="btnAnalisis" onclick="showSection('analisis')">
+          Análisis
+        </button>
+      </div>
+    </div>
+
+    <!-- Contenedor blanco transparente para el contenido -->
+    <div class="content-container">
+      <!-- Sección Filtrado -->
+      <div id="filtrado" class="section active">
+        <div class="filter-category">
+          <h3>Tipo Servicio</h3>
+          <div class="filter-item">
+            <label class="switch">
+              <input type="checkbox" id="hospital">
+              <span class="slider"></span>
+            </label>
+            <span class="label-text">Hospital</span>
+            <img src="static/img/hospital.png" alt="Hospital">
+          </div>
+          <div class="filter-item">
+            <label class="switch">
+              <input type="checkbox" id="farmacia">
+              <span class="slider"></span>
+            </label>
+            <span class="label-text">Farmacia</span>
+            <img src="static/img/farmacia.png" alt="Farmacia">
+          </div>
+          <div class="filter-item">
+            <label class="switch">
+              <input type="checkbox" id="clinica">
+              <span class="slider"></span>
+            </label>
+            <span class="label-text">Clínica</span>
+            <img src="static/img/clinica-movil.png" alt="Clínica">
+          </div>
+        </div>
+
+        <div class="filter-category">
+          <h3>Tipo Zona</h3>
+          <div class="filter-item">
+            <label class="switch">
+              <input type="checkbox" id="riesgo">
+              <span class="slider"></span>
+            </label>
+            <span class="label-text">Riesgo</span>
+            <span class="color-box" style="background-color: red;"></span>
+          </div>
+          <div class="filter-item">
+            <label class="switch">
+              <input type="checkbox" id="atencion">
+              <span class="slider"></span>
+            </label>
+            <span class="label-text">Atención</span>
+            <span class="color-box" style="background-color: blue;"></span>
+          </div>
+        </div>
+
+        <div class="filter-category">
+          <h3>Capacidad</h3>
+          <div class="filter-item">
+            <label class="switch">
+              <input type="checkbox" id="menos100">
+              <span class="slider"></span>
+            </label>
+            <span class="label-text">&lt; 100</span>
+          </div>
+          <div class="filter-item">
+            <label class="switch">
+              <input type="checkbox" id="mas100">
+              <span class="slider"></span>
+            </label>
+            <span class="label-text">&gt; 100</span>
+          </div>
+        </div>
+
+        <div class="filter-category">
+          <h3>Horario</h3>
+          <div class="filter-item">
+            <label class="switch">
+              <input type="checkbox" id="24hrs">
+              <span class="slider"></span>
+            </label>
+            <span class="label-text">24 hr</span>
+          </div>
+          <div class="filter-item">
+            <label class="switch">
+              <input type="checkbox" id="no24hrs">
+              <span class="slider"></span>
+            </label>
+            <span class="label-text">&not; 24 hr</span>
+          </div>
+        </div>
+
+        <div class="filter-category">
+          <h3>Estado</h3>
+          <div class="filter-item">
+            <label class="switch">
+              <input type="checkbox" id="activo">
+              <span class="slider"></span>
+            </label>
+            <span class="label-text">Activo</span>
+          </div>
+          <div class="filter-item">
+            <label class="switch">
+              <input type="checkbox" id="operativo">
+              <span class="slider"></span>
+            </label>
+            <span class="label-text">Operativo</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección Análisis con Turf -->
+      <div id="analisis" class="section">
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/osmtogeojson@3.0.0-beta.5/osmtogeojson.min.js"></script>
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+  <script src="https://rawcdn.githack.com/makinacorpus/Leaflet.GeometryUtil/master/src/leaflet.geometryutil.js"></script>
+
+  <!-- Incluir Mapbox GL JS -->
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js"></script>
+  <script src="static/js/app.js"></script>
+</body>
+</html>
