@@ -222,3 +222,126 @@ h2 {
     cursor: pointer;
     border-radius: 50%;
 }
+
+/* Contenedor flex para botón y input */
+.buffer-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Botón pequeño amarillo con bordes redondeados */
+#btnCrearBuffer {
+  width: 50px;
+  height: 30px;
+  background-color: #ffe600; /* amarillo */
+  border: none;
+  border-radius: 25px; /* ovalado */
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 0 3px rgba(255, 230, 0, 0.7);
+}
+
+/* Input con fondo gris claro, texto negro, bordes redondeados */
+#inputBufferRadio {
+  width: 90px;
+  height: 30px;
+  background-color: #d3d3d3; /* gris claro */
+  border: none;
+  border-radius: 25px;
+  padding-left: 10px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: black;
+  outline: none;
+  appearance: textfield;
+  -moz-appearance: textfield; /* Quitar flechas en Firefox */
+}
+
+/* Quitar flechas para input number en Chrome */
+#inputBufferRadio::-webkit-outer-spin-button,
+#inputBufferRadio::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Texto "km" alineado verticalmente */
+.km-label {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: white;
+}
+
+#medicion-distancia button:hover {
+  opacity: 0.8;
+}
+
+.marker-punto1 {
+  background-color: #e65100;
+  color: black;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 4px 8px;
+  border: 2px solid black;
+  text-align: center;
+}
+
+.marker-punto2 {
+  background-color: #9c27b0;
+  color: black;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 4px 8px;
+  border: 2px solid black;
+  text-align: center;
+}
+
+/* Contenedor para cada label + control alineados a la izquierda */
+.label-control-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  justify-content: flex-start; /* alinear a la izquierda */
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding-bottom: 20px;
+}
+
+/* Para el label "Centroides" arriba del botón */
+#centroides-label {
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 6px;
+  text-align: left;
+  width: 100%;
+  padding-top: 10px;
+}
+
+/* Botones con estilo gris, bordes redondeados igual que "Medir" */
+.btn-gris-redondo {
+  background-color: #ccc;
+  color: black;
+  font-weight: bold;
+  border-radius: 20px;
+  padding: 6px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: opacity 0.3s;
+}
+
+.btn-gris-redondo:hover {
+  opacity: 0.8;
+}
+
+/* Ajustar input buffer y botón para que estén alineados a la izquierda también */
+.buffer-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-start; /* para que quede alineado a la izquierda */
+  margin-bottom: 20px;
+}

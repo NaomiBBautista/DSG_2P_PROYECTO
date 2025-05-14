@@ -1,25 +1,19 @@
 <!DOCTYPE html>
 <html lang="es-mx">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""
-  />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"
-  />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-  />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
   <link rel="stylesheet" href="static/css/styles.css">
   <title>DSG_2P_PROYECTO</title>
 </head>
+
 <body>
   <!-- Contenedor del mapa -->
   <div id="map"></div>
@@ -145,23 +139,59 @@
       </div>
 
       <!-- Sección Análisis con Turf -->
-      <div id="analisis" class="section">
+      <div id="analisis" class="section" style="padding:10px; background:rgba(0,0,0,0.9); max-width:400px;">
+        <!-- Sección Análisis Buffer -->
+        <h3 style="color: white; font-weight: bold; font-size: 1.4rem; margin-bottom: 12px; text-align: left;">
+          Análisis Buffer
+        </h3>
+
+        <div class="buffer-container">
+          <button id="btnCrearBuffer"></button>
+          <input id="inputBufferRadio" type="number" min="0.1" max="5" step="0.1" value="0.2" />
+          <span class="km-label">km</span>
+        </div>
+
+        <!-- Medición de distancia -->
+        <div id="medicion-distancia" style="color: white; font-family: Arial, sans-serif;">
+          <h3 style="font-weight: bold; font-size: 1.4rem; margin-bottom: 8px; text-align: left;">Medición de Distancia
+          </h3>
+          <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px;">
+            <button id="btnP1" class="btn-gris-redondo"
+              style="background-color: #e65100; color: black; border-radius: 20px; padding: 6px 16px;">P1</button>
+            <button id="btnP2" class="btn-gris-redondo"
+              style="background-color: #9c27b0; color: black; border-radius: 20px; padding: 6px 16px;">P2</button>
+            <button id="btnMedir" class="btn-gris-redondo">Medir</button>
+          </div>
+          <div class="label-control-group">
+            <span>Distancia:</span>
+            <span id="distanciaTexto" style="font-weight: bold; font-size: 1.2rem;">0 km</span>
+          </div>
+        </div>
+
+        <!-- Centroides con label y botón estilizados -->
+        <div class="label-control-group" style="flex-direction: column; align-items: flex-start; margin-top: 10px;">
+          <label id="centroides-label" for="btnCentroides">Centroides</label>
+          <button id="btnCentroides" class="btn-gris-redondo" style="padding: 8px 16px; cursor: pointer;">
+            Mostrar centroides
+          </button>
+        </div>
+
       </div>
-    </div>
-  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/osmtogeojson@3.0.0-beta.5/osmtogeojson.min.js"></script>
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""
-  ></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
-  <script src="https://rawcdn.githack.com/makinacorpus/Leaflet.GeometryUtil/master/src/leaflet.geometryutil.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/osmtogeojson@3.0.0-beta.5/osmtogeojson.min.js"></script>
+      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+      <script
+        src="https://rawcdn.githack.com/makinacorpus/Leaflet.GeometryUtil/master/src/leaflet.geometryutil.js"></script>
+      <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 
-  <!-- Incluir Mapbox GL JS -->
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js"></script>
-  <script src="static/js/app.js"></script>
+
+      <!-- Incluir Mapbox GL JS -->
+      <script src="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js"></script>
+      <script src="static/js/app.js"></script>
+      <script src="static/js/turf.js"></script>
 </body>
+
 </html>
