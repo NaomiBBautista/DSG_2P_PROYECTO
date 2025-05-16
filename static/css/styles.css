@@ -6,24 +6,50 @@ html, body {
     box-sizing: border-box;
 }
 
+.wrapper {
+    background-color: #fff;
+    display: flex;
+    height: 100vh;
+    margin: 0;
+}
+
 #map {
-    width: 100%;
+    flex: 1;
     height: 100%;
 }
 
+.map-style-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.btn-style {
+  background: #f2f2f2;
+  color: black;
+  border: none;
+  border-radius: 15px; 
+   height: 30px; 
+  padding: 0px 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  line-height: 30px;
+}
+
+.btn-style.active {
+  background: #78c2a4;
+  color: white;
+}
+
 .nav-buttons-container {
-    background: #000;
+    background: #fff;
+    color: #000;
     padding: 15px;
     text-align: center;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-}
-
-h2 {
-    font-size: 25px;
-    color: #fff;
-    padding-right: 10px;
-    padding-left: 10px;
 }
 
 .nav-buttons {
@@ -33,36 +59,36 @@ h2 {
 }
 
 .nav-buttons button {
-    background-color: black;
-    color: #fff;
-    font-weight: 100;
+    background-color: white;
+    color: #000;
+    font-weight: bold;
     border: none;
     padding: 8px 15px;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 17px;
+    font-size: 1.2rem;
     transition: background 0.3s, color 0.3s;
 }
 
 .content-container {
-    background: rgba(0, 0, 0, 0.9); 
+    background: rgba(255, 255, 255, 1); 
     padding: 10px;
     text-align: center;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.4);
 }
 
 .nav-buttons button.active {
-    background-color: #fff;
-    color: black;
-    border-color: 1px #fff;
+    background-color: #000;
+    color: white;
+    border-color: 1px #000;
 }
 
 .nav-buttons button:hover {
-    background-color: #000;
-    color: white;
-    border-color: 1px white;
+    background-color: #fff;
+    color: black;
+    border-color: 1px clack;
 }
 
 .section {
@@ -74,24 +100,25 @@ h2 {
 }
 
 /* Estilos para los filtros */
-.filter-category {
+.category {
     margin-bottom: 20px;
     text-align: left;
     padding-bottom: 10px;
     border-bottom: 1px solid #ccc; 
-    margin-left: 40px; 
-    margin-right: 40px; 
+    margin-left: 30px; 
+    margin-right: 30px; 
 }
 
-.filter-category h3 {
+.category h3 {
     font-size: 1.2rem;
     margin-bottom: 5px;
-    color: #fff;
-    padding-left: 10;
+    color: #000;
+    padding-left: 10px;
+    padding-bottom: 10px;
 }
 
 /* Estilo de los iconos de los filtros */
-.filter-category .switch img {
+.category .switch img {
     width: 80px;
     margin-left: 15px;
 }
@@ -132,12 +159,12 @@ h2 {
     border-radius: 50%;
     left: 4px;
     bottom: 4px;
-    background-color: black;
+    background-color: white;
     transition: 0.4s;
 }
 
 .switch input:checked + .slider {
-    background-color: #fff;
+    background-color: #78c2a4;
 }
 
 .switch input:checked + .slider:before {
@@ -161,7 +188,7 @@ h2 {
     margin: 0;
     /* ya tiene position:relative y tamaño definido */
 }
-.filter-category .switch img {
+.category .switch img {
     width: 20px;
     margin-right: 10px;
 }
@@ -170,7 +197,7 @@ h2 {
 .filter-item .label-text {
     margin: 0 8px;
     font-size: 1rem;
-    color: #fff;
+    color: #000;
 }
   
 /* Ajusta el tamaño/icono */
@@ -182,23 +209,20 @@ h2 {
 
 /* Estilo para el contenedor de filtros */
 .overlay-container {
-    position: absolute;
-    top: 0;
-    left: 0%;
+    position: static;
     width: 280px;
-    height: 800px;
-    max-height: 100vh;
-    border-radius: 20px;
-    overflow: hidden; 
-    z-index: 1000;
+    overflow-y: auto;
+    border-radius: 0px;
+    box-shadow: none;
+    z-index: auto;
 }
 
 /* Estilos para los filtros con colores */
-.filter-category .color-box {
+.category .color-box {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    margin-right: 10px;
+    margin-right: 0px;
 }
 
 /* Eliminar fondo blanco por defecto del contenedor del popup */
@@ -230,28 +254,28 @@ h2 {
   gap: 10px;
 }
 
-/* Botón pequeño amarillo con bordes redondeados */
+/* Botón pequeño con bordes redondeados */
 #btnCrearBuffer {
   width: 50px;
   height: 30px;
-  background-color: #ffe600; /* amarillo */
+  background-color: #78c2a4;
   border: none;
   border-radius: 25px; /* ovalado */
   cursor: pointer;
   outline: none;
-  box-shadow: 0 0 3px rgba(255, 230, 0, 0.7);
 }
+
+
 
 /* Input con fondo gris claro, texto negro, bordes redondeados */
 #inputBufferRadio {
-  width: 90px;
+  width: 80px;
   height: 30px;
-  background-color: #d3d3d3; /* gris claro */
+  background-color: #f2f2f2; /* gris claro */
   border: none;
   border-radius: 25px;
   padding-left: 10px;
-  font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: black;
   outline: none;
   appearance: textfield;
@@ -269,30 +293,25 @@ h2 {
 .km-label {
   font-weight: bold;
   font-size: 1.2rem;
-  color: white;
+  color: black;
 }
 
-#medicion-distancia button:hover {
-  opacity: 0.8;
-}
 
 .marker-punto1 {
-  background-color: #e65100;
-  color: black;
+  background-color: #385c4d;
+  color: white;
   font-weight: bold;
   border-radius: 50%;
   padding: 4px 8px;
-  border: 2px solid black;
   text-align: center;
 }
 
 .marker-punto2 {
-  background-color: #9c27b0;
-  color: black;
+  background-color: #203991;
+  color: white;
   font-weight: bold;
   border-radius: 50%;
   padding: 4px 8px;
-  border: 2px solid black;
   text-align: center;
 }
 
@@ -301,9 +320,8 @@ h2 {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 10px;
   justify-content: flex-start; /* alinear a la izquierda */
-  color: white;
+  color: black;
   font-weight: bold;
   font-size: 1.1rem;
   padding-bottom: 20px;
@@ -311,7 +329,7 @@ h2 {
 
 /* Para el label "Centroides" arriba del botón */
 #centroides-label {
-  color: white;
+  color: black;
   font-weight: bold;
   font-size: 1.2rem;
   margin-bottom: 6px;
@@ -322,19 +340,29 @@ h2 {
 
 /* Botones con estilo gris, bordes redondeados igual que "Medir" */
 .btn-gris-redondo {
-  background-color: #ccc;
+  background-color: #f2f2f2;
   color: black;
-  font-weight: bold;
+  height: 35px;
+  font-weight: semi-bold;
   border-radius: 20px;
-  padding: 6px 20px;
+  padding: 0px 15px;
   border: none;
   cursor: pointer;
   font-size: 1rem;
-  transition: opacity 0.3s;
 }
 
 .btn-gris-redondo:hover {
   opacity: 0.8;
+}
+
+.btn-gris-punto{
+    background-color: #78c2a4; 
+    height: 35px;
+    color: white;
+    border-radius: 20px;
+    font-weight: bold;
+    border: none;
+    padding: 6px 16px;
 }
 
 /* Ajustar input buffer y botón para que estén alineados a la izquierda también */
@@ -345,3 +373,41 @@ h2 {
   justify-content: flex-start; /* para que quede alineado a la izquierda */
   margin-bottom: 20px;
 }
+
+/* Estilo para el Cluster */
+/* < 10 puntos */
+.marker-cluster-small {
+  background-color: #78c2a4 !important;
+  color: white !important;
+  font-weight: bold !important;
+}
+.marker-cluster-small div {
+  background-color: #78c2a4 !important;
+  color: black !important;
+  font-weight: bold !important;
+}
+
+/* >= 10 puntos y < 100 */
+.marker-cluster-medium {
+  background-color: black !important;
+  color: black !important;
+  font-weight: bold !important;
+}
+.marker-cluster-medium div {
+  background-color: black !important;
+  color: white !important;
+  font-weight: bold !important;
+}
+
+/* >= 100 puntos */
+.marker-cluster-large {
+  background-color: red !important;
+  color: white !important;
+  font-weight: bold !important;
+}
+.marker-cluster-large div {
+  background-color: red !important;
+  color: white !important;
+  font-weight: bold !important;
+}
+

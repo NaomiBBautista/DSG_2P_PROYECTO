@@ -15,183 +15,198 @@
 </head>
 
 <body>
-  <!-- Contenedor del mapa -->
-  <div id="map"></div>
 
-  <div class="overlay-container">
-    <!-- Sección de botones con fondo azul oscuro -->
-    <div class="nav-buttons-container">
-      <div class="nav-buttons">
-        <button id="btnFiltrado" class="active" onclick="showSection('filtrado')">
-          Filtrado
-        </button>
-        <button id="btnAnalisis" onclick="showSection('analisis')">
-          Análisis
-        </button>
-      </div>
-    </div>
-
-    <!-- Contenedor blanco transparente para el contenido -->
-    <div class="content-container">
-      <!-- Sección Filtrado -->
-      <div id="filtrado" class="section active">
-        <div class="filter-category">
-          <h3>Tipo Servicio</h3>
-          <div class="filter-item">
-            <label class="switch">
-              <input type="checkbox" id="hospital">
-              <span class="slider"></span>
-            </label>
-            <span class="label-text">Hospital</span>
-            <img src="static/img/hospital.png" alt="Hospital">
-          </div>
-          <div class="filter-item">
-            <label class="switch">
-              <input type="checkbox" id="farmacia">
-              <span class="slider"></span>
-            </label>
-            <span class="label-text">Farmacia</span>
-            <img src="static/img/farmacia.png" alt="Farmacia">
-          </div>
-          <div class="filter-item">
-            <label class="switch">
-              <input type="checkbox" id="clinica">
-              <span class="slider"></span>
-            </label>
-            <span class="label-text">Clínica</span>
-            <img src="static/img/clinica-movil.png" alt="Clínica">
-          </div>
-        </div>
-
-        <div class="filter-category">
-          <h3>Tipo Zona</h3>
-          <div class="filter-item">
-            <label class="switch">
-              <input type="checkbox" id="riesgo">
-              <span class="slider"></span>
-            </label>
-            <span class="label-text">Riesgo</span>
-            <span class="color-box" style="background-color: red;"></span>
-          </div>
-          <div class="filter-item">
-            <label class="switch">
-              <input type="checkbox" id="atencion">
-              <span class="slider"></span>
-            </label>
-            <span class="label-text">Atención</span>
-            <span class="color-box" style="background-color: blue;"></span>
-          </div>
-        </div>
-
-        <div class="filter-category">
-          <h3>Capacidad</h3>
-          <div class="filter-item">
-            <label class="switch">
-              <input type="checkbox" id="menos100">
-              <span class="slider"></span>
-            </label>
-            <span class="label-text">&lt; 100</span>
-          </div>
-          <div class="filter-item">
-            <label class="switch">
-              <input type="checkbox" id="mas100">
-              <span class="slider"></span>
-            </label>
-            <span class="label-text">&gt; 100</span>
-          </div>
-        </div>
-
-        <div class="filter-category">
-          <h3>Horario</h3>
-          <div class="filter-item">
-            <label class="switch">
-              <input type="checkbox" id="24hrs">
-              <span class="slider"></span>
-            </label>
-            <span class="label-text">24 hr</span>
-          </div>
-          <div class="filter-item">
-            <label class="switch">
-              <input type="checkbox" id="no24hrs">
-              <span class="slider"></span>
-            </label>
-            <span class="label-text">&not; 24 hr</span>
-          </div>
-        </div>
-
-        <div class="filter-category">
-          <h3>Estado</h3>
-          <div class="filter-item">
-            <label class="switch">
-              <input type="checkbox" id="activo">
-              <span class="slider"></span>
-            </label>
-            <span class="label-text">Activo</span>
-          </div>
-          <div class="filter-item">
-            <label class="switch">
-              <input type="checkbox" id="operativo">
-              <span class="slider"></span>
-            </label>
-            <span class="label-text">Operativo</span>
-          </div>
+  <div class="wrapper">
+    <div class="overlay-container">
+      <!-- Sección de botones con fondo azul oscuro -->
+      <div class="nav-buttons-container">
+        <div class="nav-buttons">
+          <button id="btnAnalisis" class="active" onclick="showSection('analisis')">
+            Análisis
+          </button>
+          <button id="btnFiltrado" onclick="showSection('filtrado')">
+            Filtrado
+          </button>
         </div>
       </div>
 
       <!-- Sección Análisis con Turf -->
-      <div id="analisis" class="section" style="padding:10px; background:rgba(0,0,0,0.9); max-width:400px;">
-        <!-- Sección Análisis Buffer -->
-        <h3 style="color: white; font-weight: bold; font-size: 1.4rem; margin-bottom: 12px; text-align: left;">
-          Análisis Buffer
-        </h3>
+      <div id="analisis" class="section active" style="padding:10px; background:rgba(255,255,255,0.9);">
+        <!-- Estilo de Mapa -->
+        <div class="category">
+          <h3>Estilo Mapa</h3>
+          <div class="map-style-buttons">
+            <button id="btnStyleCalles" class="btn-style active">Calles</button>
+            <button id="btnStyleSatellite" class="btn-style">Satélite</button>
+            <button id="btnStylePositron" class="btn-style">Positron</button>
+            <button id="btnStyleToner" class="btn-style">Toner</button>
+          </div>
+        </div>
 
-        <div class="buffer-container">
-          <button id="btnCrearBuffer"></button>
-          <input id="inputBufferRadio" type="number" min="0.1" max="5" step="0.1" value="0.2" />
-          <span class="km-label">km</span>
+
+        <!-- Sección Análisis Buffer -->
+        <div class="category">
+          <h3>Análisis Buffer</h3>
+          <div class="buffer-container">
+            <button id="btnCrearBuffer"></button>
+            <input id="inputBufferRadio" type="number" min="0.1" max="5" step="0.1" value="0.2" />
+            <span class="km-label">km</span>
+          </div>
         </div>
 
         <!-- Medición de distancia -->
-        <div id="medicion-distancia" style="color: white; font-family: Arial, sans-serif;">
-          <h3 style="font-weight: bold; font-size: 1.4rem; margin-bottom: 8px; text-align: left;">Medición de Distancia
-          </h3>
+        <div class="category">
+          <h3>Medición de Distancia</h3>
           <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px;">
-            <button id="btnP1" class="btn-gris-redondo"
-              style="background-color: #e65100; color: black; border-radius: 20px; padding: 6px 16px;">P1</button>
-            <button id="btnP2" class="btn-gris-redondo"
-              style="background-color: #9c27b0; color: black; border-radius: 20px; padding: 6px 16px;">P2</button>
+            <button id="btnP1" class="btn-gris-punto">P1</button>
+            <button id="btnP2" class="btn-gris-punto">P2</button>
             <button id="btnMedir" class="btn-gris-redondo">Medir</button>
           </div>
           <div class="label-control-group">
-            <span>Distancia:</span>
-            <span id="distanciaTexto" style="font-weight: bold; font-size: 1.2rem;">0 km</span>
+            <span style="padding: 5px; color: black; font-weight: lighter; font-size: 1rem;">Distancia:</span>
+            <span id="distanciaTexto" style="font-weight: lighter; font-size: 1rem; color: black ;">0 km</span>
           </div>
         </div>
 
         <!-- Centroides con label y botón estilizados -->
-        <div class="label-control-group" style="flex-direction: column; align-items: flex-start; margin-top: 10px;">
-          <label id="centroides-label" for="btnCentroides">Centroides</label>
-          <button id="btnCentroides" class="btn-gris-redondo" style="padding: 8px 16px; cursor: pointer;">
+        <div class="category">
+          <h3>Centroides</h3>
+          <button id="btnCentroides" class="btn-gris-redondo">
             Mostrar centroides
           </button>
         </div>
 
       </div>
 
-      <script src="https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/osmtogeojson@3.0.0-beta.5/osmtogeojson.min.js"></script>
-      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
-      <script
-        src="https://rawcdn.githack.com/makinacorpus/Leaflet.GeometryUtil/master/src/leaflet.geometryutil.js"></script>
-      <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+
+      <!-- Contenedor negro transparente para el contenido -->
+      <div class="content-container">
+        <!-- Sección Filtrado -->
+        <div id="filtrado" class="section">
+          <div class="category">
+            <h3>Tipo Servicio</h3>
+            <div class="filter-item">
+              <label class="switch">
+                <input type="checkbox" id="hospital">
+                <span class="slider"></span>
+              </label>
+              <span class="label-text">Hospital</span>
+              <img src="static/img/hospital.png" alt="Hospital">
+            </div>
+            <div class="filter-item">
+              <label class="switch">
+                <input type="checkbox" id="farmacia">
+                <span class="slider"></span>
+              </label>
+              <span class="label-text">Farmacia</span>
+              <img src="static/img/farmacia.png" alt="Farmacia">
+            </div>
+            <div class="filter-item">
+              <label class="switch">
+                <input type="checkbox" id="clinica">
+                <span class="slider"></span>
+              </label>
+              <span class="label-text">Clínica</span>
+              <img src="static/img/clinica-movil.png" alt="Clínica">
+            </div>
+          </div>
+
+          <div class="category">
+            <h3>Tipo Zona</h3>
+            <div class="filter-item">
+              <label class="switch">
+                <input type="checkbox" id="riesgo">
+                <span class="slider"></span>
+              </label>
+              <span class="label-text">Riesgo</span>
+              <span class="color-box" style="background-color: red;"></span>
+            </div>
+            <div class="filter-item">
+              <label class="switch">
+                <input type="checkbox" id="atencion">
+                <span class="slider"></span>
+              </label>
+              <span class="label-text">Atención</span>
+              <span class="color-box" style="background-color: #3258de;"></span>
+            </div>
+          </div>
+
+          <div class="category">
+            <h3>Capacidad</h3>
+            <div class="filter-item">
+              <label class="switch">
+                <input type="checkbox" id="menos100">
+                <span class="slider"></span>
+              </label>
+              <span class="label-text">&lt; 100</span>
+            </div>
+            <div class="filter-item">
+              <label class="switch">
+                <input type="checkbox" id="mas100">
+                <span class="slider"></span>
+              </label>
+              <span class="label-text">&gt; 100</span>
+            </div>
+          </div>
+
+          <div class="category">
+            <h3>Horario</h3>
+            <div class="filter-item">
+              <label class="switch">
+                <input type="checkbox" id="24hrs">
+                <span class="slider"></span>
+              </label>
+              <span class="label-text">24 hr</span>
+            </div>
+            <div class="filter-item">
+              <label class="switch">
+                <input type="checkbox" id="no24hrs">
+                <span class="slider"></span>
+              </label>
+              <span class="label-text">&not; 24 hr</span>
+            </div>
+          </div>
+
+          <div class="category">
+            <h3>Estado</h3>
+            <div class="filter-item">
+              <label class="switch">
+                <input type="checkbox" id="activo">
+                <span class="slider"></span>
+              </label>
+              <span class="label-text">Activo</span>
+            </div>
+            <div class="filter-item">
+              <label class="switch">
+                <input type="checkbox" id="operativo">
+                <span class="slider"></span>
+              </label>
+              <span class="label-text">Operativo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contenedor del mapa -->
+    <div id="map"></div>
+  </div>
 
 
-      <!-- Incluir Mapbox GL JS -->
-      <script src="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js"></script>
-      <script src="static/js/app.js"></script>
-      <script src="static/js/turf.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/osmtogeojson@3.0.0-beta.5/osmtogeojson.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+  <script
+    src="https://rawcdn.githack.com/makinacorpus/Leaflet.GeometryUtil/master/src/leaflet.geometryutil.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+
+
+  <!-- Incluir Mapbox GL JS -->
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js"></script>
+  <script src="static/js/app.js"></script>
+  <script src="static/js/turf.js"></script>
 </body>
 
 </html>

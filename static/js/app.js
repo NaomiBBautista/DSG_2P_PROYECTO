@@ -3,17 +3,51 @@
 // Inicializar mapa en zona de león a nivel 16 (calle)
 const map = L.map("map").setView([21.1234, -101.6893], 16);
 
-// Añadir la capa base de Mapbox (satélite + calles)
-L.tileLayer(
-  "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
-  {
-    id: "mapbox/satellite-streets-v12",
-    tileSize: 512,
-    zoomOffset: -1,
-    accessToken:
-      "pk.eyJ1IjoibmFvbWliYmF1dGlzdGEiLCJhIjoiY204NHl2ZXI2MjhtZDJqcThuczg0bG1jeSJ9.FPkSsdtieplL-9yxl9Uf5g",
-  }
-).addTo(map);
+// ——— Capas base de los estilos del mapa ———
+const baseLayers = {
+  Calles: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap contributors'
+  }),
+  Satellite: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    maxZoom: 18,
+    attribution: 'Tiles © Esri — Datos © OpenStreetMap'
+  }),
+  Positron: L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; CartoDB &copy; OpenStreetMap'
+  }),
+  Toner: L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', {
+    maxZoom: 20,
+    attribution: 'Map tiles by Stamen — Datos © OpenStreetMap'
+  })
+};
+
+// Capa por defecto (Calles)
+let currentBase = baseLayers.Positron.addTo(map);
+
+
+function switchBaseMap(name) {
+  // quita la capa actual
+  map.removeLayer(currentBase);
+  // añade la nueva
+  currentBase = baseLayers[name].addTo(map);
+
+  // actualiza apariencia de botones
+  document.querySelectorAll('.btn-style').forEach(btn =>
+    btn.classList.toggle('active', btn.id === `btnStyle${name}`)
+  );
+}
+
+// Vincula botones
+document.getElementById('btnStyleCalles')
+  .addEventListener('click', () => switchBaseMap('Calles'));
+document.getElementById('btnStyleSatellite')
+  .addEventListener('click', () => switchBaseMap('Satellite'));
+document.getElementById('btnStylePositron')
+  .addEventListener('click', () => switchBaseMap('Positron'));
+document.getElementById('btnStyleToner')
+  .addEventListener('click', () => switchBaseMap('Toner'));
 
 
 // =========================================================================================================================================================
@@ -146,7 +180,7 @@ async function loadPolygons() {
         fillColor: tipoNorm.includes("riesgo")
           ? "red"
           : tipoNorm.includes("atencion")
-            ? "blue"
+            ? "#3258de"
             : "#888"
       };
   
@@ -411,7 +445,7 @@ btnCrearBuffer.addEventListener("click", () => {
   if (bufferActivo) {
     btnCrearBuffer.textContent = "X";
     map.getContainer().style.cursor = "crosshair";
-    alert("Haz clic en el mapa para seleccionar un punto y crear un buffer.");
+    //alert("Haz clic en el mapa para seleccionar un punto y crear un buffer.");
   } else {
     btnCrearBuffer.textContent = "✔";
     map.getContainer().style.cursor = "";
@@ -449,7 +483,7 @@ map.on("click", (e) => {
   bufferLayer = L.geoJSON(buffer, {
     style: {
       color: "black",
-      fillColor: "yellow",
+      fillColor: "#78c2a4",
       fillOpacity: 0.3,
       weight: 2,
     },
@@ -509,7 +543,7 @@ map.on("click", (e) => {
 
     // Dentro del buffer: cambia icono resaltado
     marker.setIcon(L.icon({
-      iconUrl: "static/img/marcar.png", // icono resaltado
+      iconUrl: "static/img/mapa.png", // icono resaltado
       iconSize: [80, 80],
     }));
   } else {
@@ -552,13 +586,13 @@ const distanciaTexto = document.getElementById("distanciaTexto");
 btnP1.addEventListener("click", () => {
   modoSeleccion = "p1";
   map.getContainer().style.cursor = "crosshair";
-  alert("Haz clic en el mapa para seleccionar el Punto 1");
+  //alert("Haz clic en el mapa para seleccionar el Punto 1");
 });
 
 btnP2.addEventListener("click", () => {
   modoSeleccion = "p2";
   map.getContainer().style.cursor = "crosshair";
-  alert("Haz clic en el mapa para seleccionar el Punto 2");
+  //alert("Haz clic en el mapa para seleccionar el Punto 2");
 });
 
 // Cuando se da click en el mapa y modoSeleccion está activo, guardamos el punto
@@ -651,8 +685,8 @@ function mostrarCentroides() {
     // Crear marcador para el centroide con un icono o estilo especial
     const marker = L.circleMarker([lat, lng], {
       radius: 8,
-      color: "yellow",
-      fillColor: "orange",
+      color: "#000",
+      fillColor: "#000",
       fillOpacity: 0.9,
       weight: 2,
     }).bindPopup(`
